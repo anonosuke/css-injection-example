@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Injection Example</title>
+    <style>
+        #result div {
+            border: 1px solid #000;
+            margin: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My Website</h1>
+    <form id="userForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById('userForm');
+            const resultDiv = document.getElementById('result');
+
+            // 初回ロード時にlocalStorageからデータを読み込み表示
+            displayStoredData();
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const username = document.getElementById('username').value;
+                
+                // ユーザー入力をlocalStorageに保存
+                saveToLocalStorage(username);
+                
+                // 入力内容を表示
+                displayStoredData();
+                
+                // フォームをリセット
+                form.reset();
+            });
+
+            function saveToLocalStorage(data) {
+                let storedData = JSON.parse(localStorage.getItem('usernames')) || [];
+                storedData.push(data);
+                localStorage.setItem('usernames', JSON.stringify(storedData));
+            }
+
+            function displayStoredData() {
+                resultDiv.innerHTML = '';
+                let storedData = JSON.parse(localStorage.getItem('usernames')) || [];
+                storedData.forEach(function(item) {
+                    let div = document.createElement('div');
+                    div.innerHTML = item;
+                    resultDiv.appendChild(div);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

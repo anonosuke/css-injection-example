@@ -1,1 +1,8 @@
-# css-injection-example
+## CSSインジェクションお試しリポジトリ
+- injection_example.html
+  - ユーザーが入力したものが、その後入力フォームの下側に出力として出てくる、よく見るアプリ
+  - localStorageを擬似DBとして使用しています。
+    - 他の開発中のアプリに影響があるかもしれないので、試した後にlocalStorageに保存されたデータは削除する事を推奨しまう
+  - CSSインジェクションを体験する、いくつかの入力例を下記に記載します
+    - Hello 私はハッカーだ。君のPCを乗っ取った。情報を流されたく無ければ。⚪︎⚪︎⚪︎⚪︎に100万円振り込め。<style>body {background-color: red;}</style>
+    
